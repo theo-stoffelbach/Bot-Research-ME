@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 const {testManageAccount} = require("./puppeteer/testManagaAccount");
 const {search} = require("./puppeteer/search");
+const {acceptCookie} = require("./puppeteer/acceptCookie");
 
 (async ()=> {
     const browser = await puppeteer.launch({
