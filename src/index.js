@@ -1,16 +1,6 @@
 const puppeteer = require('puppeteer');
-const {logout} = require("./puppeteer/logout");
-const {accept, acceptCookie} = require("./puppeteer/acceptCookie");
-const {login} = require("./puppeteer/login");
-const {manageAccount} = require("./puppeteer/manageAccount");
 const {testManageAccount} = require("./puppeteer/testManagaAccount");
-
-function sleep(milliseconds) {
-    return new Promise(resolve => setTimeout(resolve, milliseconds));
-}
-
-
-
+const {search} = require("./puppeteer/search");
 
 (async ()=> {
     const browser = await puppeteer.launch({
@@ -29,6 +19,8 @@ function sleep(milliseconds) {
 
         // await manageAccount(page);
         await testManageAccount(page);
+
+        await search(page);
 
         // await browser.close()
         console.log("end");
