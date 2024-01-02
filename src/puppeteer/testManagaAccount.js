@@ -1,4 +1,5 @@
 const {testLogout} = require("./testLogout");
+const {testLogin} = require("./testLogin");
 exports.testManageAccount = async (page) => {
 
     await page.waitForSelector("a.id_button");
@@ -14,9 +15,11 @@ exports.testManageAccount = async (page) => {
     if (isConnected) {
         console.log("Oui")
         await testLogout(page);
-    }else {
-        console.log("Non")
     }
+
+    await testLogin(page);
+
+
 
     // a#id_button
 
