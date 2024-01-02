@@ -29,7 +29,4 @@ exports.testLogout = async (page) => {
 
         isAlreadyAnAccount = await page.$('div.id_signout');
     }
-
-    console.log("J'ai finis senpai ")
-
 }
