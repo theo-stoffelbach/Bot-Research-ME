@@ -1,7 +1,9 @@
 const puppeteer = require('puppeteer');
-const {lougout} = require("./puppeteer/logout");
+const {logout} = require("./puppeteer/logout");
 const {accept, acceptCookie} = require("./puppeteer/acceptCookie");
 const {login} = require("./puppeteer/login");
+const {manageAccount} = require("./puppeteer/manageAccount");
+const {testManageAccount} = require("./puppeteer/testManagaAccount");
 
 function sleep(milliseconds) {
     return new Promise(resolve => setTimeout(resolve, milliseconds));
@@ -22,31 +24,20 @@ function sleep(milliseconds) {
     try {
         console.log("Page on");
         await page.goto("https://www.bing.com", {waitUntil: 'networkidle0'});
-
         await acceptCookie(page);
-
         // Check if a user is connected
 
-        await page.waitForSelector("a#id_l");
-        await page.waitForSelector("span#id_n");
-
-        // await page.waitForTimeout(1000);
-        let text = await page.$eval("span#id_n", span => {
-            return span.textContent
-        })
-
-        if (text !== "") {
-            await lougout(page,text);
-            await page.goto("https://www.bing.com", {waitUntil: 'networkidle0'});
-        }
-
-        await login(page);
+        // await manageAccount(page);
+        await testManageAccount(page);
 
         // await browser.close()
         console.log("end");
     }catch (err) {
-        console.log("error : ")
-        await page.screenshot( { path: './screenDebug/tutorialspoint.png' });
+        let time = new Date();
+
+
+        console.log("error : " + err);
+        await page.screenshot( { path: './screenDebug/error - '+ time.getTime().toString() + '.png' });
     }
 
 })().catch(err => {

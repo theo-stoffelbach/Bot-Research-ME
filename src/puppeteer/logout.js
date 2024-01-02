@@ -1,20 +1,22 @@
 const puppeteer = require('puppeteer');
+const {login} = require("./login");
 
 function sleep(milliseconds) {
     return new Promise(resolve => setTimeout(resolve, milliseconds));
 }
 
-exports.lougout = async function (page, text) {
-    while (text !== "") {
+exports.logout = async function (page) {
 
-        console.log("test")
+    await page.waitForSelector("div.id_signout");
+    let isNotConnected = await page.$('div.id_signout'); // Test if you're connected
 
-        const btn = await page.waitForSelector("a.id_button");
-        page.evaluate((btn) => {
-            // this executes in the page
-            btn.click();
-        }, btn);
+    await console.log("---");
+    await console.log(isNotConnected);
 
+    while (isNotConnected) {
+
+        await console.log("Start to logOut")
+        await page.waitForTimeout(2000);
         await page.waitForSelector("a.b_toggle");
 
         let ref = await page.$eval("a.b_toggle", async a => {
@@ -27,27 +29,30 @@ exports.lougout = async function (page, text) {
         })
 
         if (typeof ref === "string") {
-            console.log("test: " + ref)
             await page.goto(ref, {waitUntil: 'networkidle0'});
-
         } else {
-            // console.log(text);
+            let dateFormatee = new Date().toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short' }).replace(/\//g, '-');
+            // await page.screenshot( { path: `./screenDebug/prouve-${dateFormatee}.png` });
             await page.waitForSelector("input#b_signout");
+
             await page.click("input#b_signout");
         }
 
-        // console.log("\n\n");
-        // console.log(ref);
-        // console.log("text : " + text);
+        await console.log(ref);
 
         await page.goto("https://www.bing.com", {waitUntil: 'networkidle0'});
 
-        text = await page.$eval("span#id_n", span => {
-            return span.textContent;
-        })
+        await page.waitForSelector("a.id_button");
+        page.click("a.id_button");
 
-        console.log(text !== "Connexion");
-        console.log("error !")
-        await console.log(text);
+
+        await page.waitForTimeout(2000);
+        isNotConnected = await page.$('div.id_signout'); // Test if you're connected
+
+        await console.log("---");
+        await console.log(isNotConnected);
+        await console.log("---");
+        await page.waitForTimeout(2000);
+
     }
 }

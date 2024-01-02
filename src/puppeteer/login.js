@@ -10,5 +10,9 @@ exports.login = async (page) => {
     await page.click("li.id_accountItem");
 
     await page.waitForSelector("input[type='email'][name='loginfmt']")
-    await page.type("input[type='email'][name='loginfmt']","GPEgfd,skf")
+    await page.type("input[type='email'][name='loginfmt']","theocestles@outlook.fr")
+
+    // await page.waitForSelector("input[type='email'][name='loginfmt']")
+    // await page.type("input[type='email'][name='loginfmt']","theocestles@outlook.fr")
+
 }
