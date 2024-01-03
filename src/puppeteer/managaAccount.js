@@ -1,6 +1,6 @@
-const {testLogout} = require("./testLogout");
-const {testLogin} = require("./testLogin");
-exports.testManageAccount = async (page) => {
+const {logout} = require("./logout");
+const {login} = require("./login");
+exports.manageAccount = async (page) => {
 
     await page.waitForSelector("a.id_button");
     await page.click("a.id_button");
@@ -10,9 +10,9 @@ exports.testManageAccount = async (page) => {
 
     if (isConnected) {
         console.log("Oui")
-        await testLogout(page);
+        await logout(page);
     }
 
-    await testLogin(page);
+    await login(page);
 
 }
