@@ -1,6 +1,6 @@
-config = require('../config/config');
+import { config } from "../config/config.js";
 
-exports.login = async (page) => {
+const login = async (page) => {
 
     const email = config.accounts[0].email;
     const password = config.accounts[0].password;
@@ -31,3 +31,5 @@ exports.login = async (page) => {
     await console.log("log in with " + email)
 
 }
+
+export { login };

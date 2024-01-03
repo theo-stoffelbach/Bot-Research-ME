@@ -1,4 +1,4 @@
-exports.logout = async (page) => {
+const logout = async (page) => {
     let isAlreadyAnAccount = true;
 
     while(isAlreadyAnAccount) {
@@ -30,3 +30,5 @@ exports.logout = async (page) => {
         isAlreadyAnAccount = await page.$('div.id_signout');
     }
 }
+
+export { logout };
