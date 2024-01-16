@@ -1,15 +1,18 @@
 import { initPuppeteer } from "./puppeteer/initPuppeteer.js";
 import { openAIFunc } from "./openAI.js";
-import { startResearch } from "./puppeteer/startResearch.js"; // Ajout de l'extension .js
+import { startResearch } from "./puppeteer/startResearch.js";
+import { manageAccount } from "./puppeteer/managaAccount.js";
+import { pageMaxResearch } from "./puppeteer/pageMaxResearch.js";
 
 async function main() {
-    // const [rst, _] = await Promise.all([openAIFunc(), initPuppeteer()]); // Changement ici
-    //
-    // console.log(rst);
+    // const [allSearch, page] = await Promise.all([openAIFunc(), initPuppeteer()]);
+    const  page = await initPuppeteer();
+    await manageAccount(page);
 
-    const page = await initPuppeteer();
-    await startResearch(page,"erdqs")
+    await pageMaxResearch(page);
 
+
+    // await startResearch(page, allSearch);
 }
 
-main();
+main().then(() => console.log("End Program"));

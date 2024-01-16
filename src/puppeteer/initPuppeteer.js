@@ -1,6 +1,5 @@
 import puppeteer from "puppeteer";
 import { acceptCookie } from "./acceptCookie.js";
-import { manageAccount } from "./managaAccount.js";
 
 const initPuppeteer = async () => {
     const browser = await puppeteer.launch({
@@ -12,8 +11,11 @@ const initPuppeteer = async () => {
 
     try {
         await page.goto("https://www.bing.com", { waitUntil: 'networkidle0' });
-        await acceptCookie(page);
-        // await manageAccount(page);
+        try {
+            await acceptCookie(page);
+        }catch (_) {
+            console.log("error to find cookie")
+        }
     } catch (err) {
         let time = new Date();
         console.log("error : " + err);

@@ -1,8 +1,14 @@
 const acceptCookie = async (page) => {
-    await page.waitForSelector("button#bnp_btn_accept");
-    await page.click("button#bnp_btn_accept");
+    await page.waitForTimeout(1500);
 
-    console.log("accept cookie");
+    const isButtonToAccept = await page.$('button#bnp_btn_accept');
+
+    if (isButtonToAccept) {
+        await page.click("button#bnp_btn_accept");
+        console.log("accept cookie");
+    }else {
+        console.log("cookie already accepted")
+    }
 }
 
 export { acceptCookie };
