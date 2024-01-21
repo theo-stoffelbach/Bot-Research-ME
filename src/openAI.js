@@ -12,13 +12,20 @@ const openai = new OpenAI({
  * return array to content 90 research
  */
 
-const openAIFunc = async () => {
+const openAIFunc = async (pageToSearch) => {
+    await console.log(pageToSearch);
     await console.log("Start GPT generation");
+
+    // maxPageResearch
+
+    const maxTokensGPT = Math.ceil(((2560 * pageToSearch) / 90) / 10) * 10
+
+    console.log("maxTokensGPT : ", maxTokensGPT)
 
     const completion = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
-        messages: [{"role": "user", "content": "sous forme de liste : 90 sujets de recherche sur le thème des technologies"}],
-        max_tokens: 2560,
+        messages: [{"role": "user", "content": `sous forme de liste : ${pageToSearch} sujets de recherche sur le thème des technologies`}],
+        max_tokens: maxTokensGPT,
     });
 
     let rstArray = completion.choices[0].message.content.split("\n");
