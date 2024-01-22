@@ -36,6 +36,7 @@ const pageMaxResearch = async (page) => {
 
         await joinProgramReward(page);
 
+        await page.goto("https://www.bing.com", { waitUntil: 'networkidle2' })
         return await openReward(page)/3; // Max Research
     }catch (err) {
         let time = new Date();

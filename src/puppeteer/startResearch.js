@@ -27,6 +27,8 @@ async function scroll(page) {
 }
 
 const startResearch = async ( page, listResearch ) => {
+    await page.goto("https://www.bing.com", { waitUntil: 'networkidle2' })
+    await page.waitForTimeout(3000);
 
     for (const research of listResearch) {
         await page.waitForSelector("div#sb_form_c"); // Test if you're connected
