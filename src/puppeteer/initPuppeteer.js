@@ -5,6 +5,7 @@ const initPuppeteer = async () => {
     const browser = await puppeteer.launch({
         executablePath: 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe',
         headless: false,
+        args: ['--disable-cache'],
     });
 
     const page = await browser.newPage();

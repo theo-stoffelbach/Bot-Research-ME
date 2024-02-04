@@ -13,8 +13,8 @@ const login = async (page) => {
     await page.waitForSelector("input[type=\"email\"]"); // Test if you're connected
     await page.type("input[type=\"email\"]",email);
 
-    await page.waitForSelector("input[type=\"submit\"]"); // Test if you're connected
-    await page.click("input[type=\"submit\"]");
+    await page.waitForSelector("input#idSIButton9"); // Test if you're connected
+    await page.click("input#idSIButton9");
 
     await page.waitForTimeout(1000);
 
@@ -26,7 +26,7 @@ const login = async (page) => {
 
     await page.waitForTimeout(1000);
 
-    await page.click("input[type=\"submit\"]");
+    await page.click("button[type=\"submit\"]");
 
     await console.log("log in with " + email)
 

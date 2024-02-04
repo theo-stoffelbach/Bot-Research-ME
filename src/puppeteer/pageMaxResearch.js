@@ -1,16 +1,28 @@
+
 const joinProgramReward = async (page) => {
-
-
     await page.waitForTimeout(3000);
-    const isJoinReward = await page.$('div.joinNow');
-    if (isJoinReward) {
-        await page.click('div.joinNow');
 
-        await page.waitForSelector('span#id_rc');
-        await page.click('span#id_rc');
+    await removeStartReward();
+    await page.waitForTimeout(3000);
 
-        await console.log("Join")
-    }
+    const isJoinReward = await openReward(page);
+    // Refaire un connextion pour que ca marche ^^
+
+    console.log("Reward : ", isJoinReward)
+    // if (isJoinReward) {
+    //     await page.click('div.joinNow');
+    //
+    //     await page.waitForSelector('span#id_rc');
+    //     await page.click('span#id_rc');
+    //
+    //     await console.log("Join")
+    // }
+}
+
+const removeStartReward = async (page) => {
+    // const isMenuReward =
+    // const isConnected = await page.$('div.id_signout'); // Test if you're connected
+
 }
 
 const openReward = async (page) => {
@@ -21,15 +33,15 @@ const openReward = async (page) => {
     const pElement = await page.$('p[ng-bind-html="$ctrl.pointProgressText"]');
     const pointMax = await page.evaluate(pText => pText.textContent, pElement);
 
-    await console.log("p : ", pointMax.split("/")[1]);
-    return pointMax.split("/")[1];
+    await console.log("p : ", pointMax.split("/")[1] - pointMax.split("/")[0]);
+    return pointMax.split("/")[1] - pointMax.split("/")[0] ;
 
 }
 
 
 const pageMaxResearch = async (page) => {
     try {
-        await page.goto("https://www.bing.com", { waitUntil: 'networkidle2' })
+        await page.goto("https://www.bing.com", { waitUntil: 'networkidle2' });
 
         await page.waitForSelector('span#id_rc');
         await page.click('span#id_rc');

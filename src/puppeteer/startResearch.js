@@ -1,10 +1,7 @@
 async function scroll(page) {
     let scrollHeight,windowYSize,totalHeight;
     let x = 100;
-    console.log("Scroll Beging");
-
-    while (x >= 5) {
-        console.log("Scroll Trigger");
+    while (x >= 10) {
         const { newTotalHeight, newScrollHeight, newWindowYSize } = page.evaluate((totalHeight) => {
             window.scrollBy(0, 70);
             const scrollHeight = document.body.scrollHeight;
@@ -20,16 +17,15 @@ async function scroll(page) {
         if (totalHeight >= scrollHeight - windowYSize) break;
 
         x = Math.round(Math.random() * 100);
-        console.log(x);
         await page.waitForTimeout(100);
-        console.log("SCROLL !!")
     }
 }
 
 const startResearch = async ( page, listResearch ) => {
     await page.goto("https://www.bing.com", { waitUntil: 'networkidle2' })
     await page.waitForTimeout(3000);
-
+    const numberSearch = listResearch.length;
+    let searchNumberNow = 0;
     for (const research of listResearch) {
         await page.waitForSelector("div#sb_form_c"); // Test if you're connected
         await page.type("div#sb_form_c", research);
@@ -38,11 +34,13 @@ const startResearch = async ( page, listResearch ) => {
         await page.waitForTimeout(2000);
 
         await scroll(page);
-        await console.log("Search finish");
+        searchNumberNow++;
+        await console.log(`Search finish :${searchNumberNow}/${numberSearch}`);
 
-        await page.waitForTimeout(2600);
+        await page.waitForTimeout(5000);
 
         await page.goto("https://www.bing.com", { waitUntil: 'networkidle2' })
+        await page.waitForTimeout(2500);
     }
 }
 
