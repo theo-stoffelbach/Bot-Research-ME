@@ -10,10 +10,10 @@ async function main() {
     await manageAccount(page);
 
     const maxPageResearch = await pageMaxResearch(page);
-    const allResearch = await openAIFunc(maxPageResearch);
-
-    console.log("research : ",allResearch)
-    await startResearch(page, allResearch);
+    // const allResearch = await openAIFunc(maxPageResearch);
+    //
+    // console.log("research : ",allResearch)
+    // await startResearch(page, allResearch);
 }
 
 main().then(() => console.log("End Program"));

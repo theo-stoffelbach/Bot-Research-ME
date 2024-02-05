@@ -9,21 +9,8 @@ const openai = new OpenAI({
 
 
 const pageForEachSubject = async (page, profil = 0) => {
-    const subjects = config.accounts[profil].subject.split(";");
-    let research = {};
-    if (subjects.length > page) {
-
-    }
-    else {
-
-        const pageForEachSubjet = Math.ceil(page / subjects.length);
-        for (let string of subjects) {
-            research[string] = pageForEachSubjet;
-        }
-    }
-    console.log("research : ");
-    console.log(research);
-    return research;
+    const subjects = config.accounts[profil].loisirs.split(";");
+    return Math.ceil(page / subjects.length);
 }
 /**
  * Open AI function is used to ask at ChatGPT 90 research for your account do this
@@ -33,12 +20,15 @@ const openAIFunc = async (pageToSearch = 0) => {
     await console.log(pageToSearch);
     await console.log("Start GPT generation");
 
-    const subjects = await pageForEachSubject(pageToSearch,0);
+    const pageEachSubject = await pageForEachSubject(pageToSearch,0);
+    const subjects = config.accounts[0].loisirs.split(";");
+
     // maxPageResearch
 
     console.log("Token use : ",Math.ceil(200 * pageToSearch));
     const maxTokensGPT = Math.ceil(200 * pageToSearch);
-    const research = `sous forme de listes : donne ${pageToSearch} sujets de recherche sur chaque theme que je te donne "${subjects}" `;
+    const research = `sous forme de listes sans le nom des theme mais que les recherches : donne ${pageEachSubject} sujets de recherche sur chaque theme que je te donne "${subjects.join(",")}" `;
+    console.log(research);
     const completion = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
         messages: [{"role": "user", "content": research}],

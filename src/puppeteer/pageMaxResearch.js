@@ -35,7 +35,6 @@ const openReward = async (page) => {
 
     await console.log("p : ", pointMax.split("/")[1] - pointMax.split("/")[0]);
     return pointMax.split("/")[1] - pointMax.split("/")[0] ;
-
 }
 
 
@@ -46,6 +45,8 @@ const pageMaxResearch = async (page) => {
         await page.waitForSelector('span#id_rc');
         await page.click('span#id_rc');
 
+
+        // /fd/auth/signin?action=interactive&provider=windows_live_id&src=SoUp_RWNU&sig=&return_url=https%3a%2f%2fwww.bing.com%2fmsrewards%2fapi%2fv1%2fenroll%3fpubl%3dBINGIP%26crea%3dML25SJ%26pn%3dREWARDSHUB%26partnerId%3dBingRewards%26pred%3dtrue%26sessionId%3d%26ru%3dhttps%253a%252f%252fwww.bing.com%252f&Token=1&lw=1&swt=1&noaadredir=1&cobrandid=03c8bbb5-2dff-4721-8261-a4ccff24c81a
         await joinProgramReward(page);
 
         await page.goto("https://www.bing.com", { waitUntil: 'networkidle2' })
