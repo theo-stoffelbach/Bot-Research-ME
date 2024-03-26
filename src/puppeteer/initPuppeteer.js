@@ -11,16 +11,10 @@ const initPuppeteer = async () => {
     const page = await browser.newPage();
 
     try {
-        await page.goto("https://www.bing.com", { waitUntil: 'networkidle0' });
-        try {
-            await acceptCookie(page);
-        }catch (_) {
-            console.log("error to find cookie")
-        }
-    } catch (err) {
-        let time = new Date();
-        console.log("error : " + err);
-        await page.screenshot({ path: './screenDebug/error - ' + time.getTime().toString() + '.png' });
+        await page.goto("https://www.bing.com/");
+        await acceptCookie(page);
+    }catch (_) {
+        console.log("error to find cookie")
     }
 
     return page;

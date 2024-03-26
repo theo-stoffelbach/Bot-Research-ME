@@ -11,12 +11,13 @@ const manageAccount = async (page) => {
 
         if (isConnected) {
             await logout(page);
+            console.log("log out")
         }
 
         await login(page);
     } catch (err) {
         let time = new Date();
-        console.log("error : " + err);
+        console.log("error manageAccount : " + err);
         await page.screenshot({ path: './screenDebug/error - ' + time.getTime().toString() + '.png' });
     }
 }

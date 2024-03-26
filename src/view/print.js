@@ -1,3 +1,3 @@
 const printSuccess = (message) => {
-    console.log(`%c${message}`, 'color: green');
+    // console.log(`%c${message}`, 'color: green');
 }
