@@ -27,6 +27,9 @@ const login = async (page) => {
 
     await page.click("button[type=\"submit\"]");
 
+
+    // bnp_btn_accept
+
     await console.log("log in with " + email)
 
 }
